@@ -1,0 +1,72 @@
+{% extends "base.html" %} {% block content %}
+<h1>Insurance Fraud Analysis Results</h1>
+
+<div class="results-container">
+  <div class="result-card">
+    <div class="result-header">
+      <h2>Analysis Complete</h2>
+      <p>Hello {{ username }}, here are your fraud detection results:</p>
+    </div>
+
+    <div class="prediction-result">
+      {% if "Fraud" in prediction %}
+      <div class="fraud-detected">
+        <div class="result-icon">⚠️</div>
+        <h3>{{ prediction }}</h3>
+        <p class="risk-level">
+          Risk Level: <span class="high-risk">{{ risk_level }}</span>
+        </p>
+      </div>
+      {% else %}
+      <div class="no-fraud">
+        <div class="result-icon">✅</div>
+        <h3>{{ prediction }}</h3>
+        <p class="risk-level">
+          Risk Level: <span class="low-risk">{{ risk_level }}</span>
+        </p>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="eligibility-status">
+      <h4>Claim Eligibility Status:</h4>
+      {% if "Not Eligible" in eligible %}
+      <div class="not-eligible">
+        <span class="status-icon">❌</span>
+        <span class="status-text">{{ eligible }}</span>
+      </div>
+      {% else %}
+      <div class="eligible">
+        <span class="status-icon">✅</span>
+        <span class="status-text">{{ eligible }}</span>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="recommendation">
+      <h4>Recommendation:</h4>
+      {% if "Fraud" in prediction %}
+      <p>
+        This claim requires further investigation. Please review all
+        documentation and consider additional verification steps before
+        processing.
+      </p>
+      {% else %}
+      <p>
+        This claim appears legitimate based on the provided information.
+        Standard processing procedures can be followed.
+      </p>
+      {% endif %}
+    </div>
+
+    <div class="action-buttons">
+      <a href="{{ url_for('insert') }}" class="btn-secondary"
+        >Analyze Another Claim</a
+      >
+      <a href="{{ url_for('dashboard') }}" class="btn-primary"
+        >Go to Dashboard</a
+      >
+    </div>
+  </div>
+</div>
+{% endblock %}

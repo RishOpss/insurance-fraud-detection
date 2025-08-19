@@ -1,0 +1,6 @@
+Flask==2.3.3
+Werkzeug==2.3.7
+scikit-learn==0.24.2
+numpy==1.22.4
+pandas==2.2.2
+mysqlclient==2.1.1

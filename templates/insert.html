@@ -1,0 +1,320 @@
+{% extends "base.html" %} {% block content %}
+<h1>Insurance Fraud Detection</h1>
+<p style="text-align: center; color: #4a5568; margin-bottom: 30px">
+  Fill out the form below to analyze potential insurance fraud
+</p>
+
+<form action="/predict" method="POST" class="insurance-form">
+  <div class="form-section">
+    <h3>Customer Information</h3>
+
+    <div class="form-group">
+      <label for="nm">Number of months associated with insurance company</label>
+      <input
+        type="number"
+        name="nm"
+        id="nm"
+        placeholder="Number of months"
+        step="any"
+        required
+        min="0"
+        max="479"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="g">Gender of insurance holder</label>
+      <select name="g" id="g" required>
+        <option value="">Select Gender</option>
+        <option value="M" selected>Male</option>
+        <option value="F">Female</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="eq">Highest educational qualification</label>
+      <select name="eq" id="eq" required>
+        <option value="">Select Education</option>
+        <option value="hs">High School</option>
+        <option value="assc">Associate</option>
+        <option value="coll" selected>College</option>
+        <option value="mas">Masters</option>
+        <option value="jd">JD</option>
+        <option value="md">MD</option>
+        <option value="phd">PhD</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="occu">Occupation of policy-holder</label>
+      <select name="occu" id="occu" required>
+        <option value="">Select Occupation</option>
+        <option value="af">Armed Forces</option>
+        <option value="cr">Craft Repair</option>
+        <option value="em">Executive Managerial</option>
+        <option value="ff">Farming Fishing</option>
+        <option value="hc">Handlers Cleaners</option>
+        <option value="moi">Machine Operator Inspector</option>
+        <option value="os">Other Service</option>
+        <option value="phs">Private House Service</option>
+        <option value="ps" selected>Professional Specialty</option>
+        <option value="prs">Protective Service</option>
+        <option value="s">Sales</option>
+        <option value="ts">Tech Support</option>
+        <option value="tm">Transport Moving</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="dph">Dependents on policy-holder</label>
+      <select name="dph" id="dph" required>
+        <option value="">Select Relationship</option>
+        <option value="nif" selected>Not in Family</option>
+        <option value="or">Other Relative</option>
+        <option value="oc">Own Child</option>
+        <option value="unm">Unmarried</option>
+        <option value="w">Wife</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3>Financial Information</h3>
+
+    <div class="form-group">
+      <label for="app">Amount paid out of pocket (deductible)</label>
+      <input
+        type="number"
+        name="app"
+        id="app"
+        placeholder="Amount paid"
+        step="any"
+        required
+        min="500"
+        max="2000"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="el">Extra liability insurance coverage</label>
+      <input
+        type="number"
+        name="el"
+        id="el"
+        placeholder="Extra liability insurance"
+        step="any"
+        required
+        min="-1000000"
+        max="10000000"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="mg">Monetary gains by the person</label>
+      <input
+        type="number"
+        name="mg"
+        id="mg"
+        placeholder="Monetary gains"
+        step="any"
+        required
+        min="0"
+        max="100500"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="ml">Monetary loss by the person</label>
+      <input
+        type="number"
+        name="ml"
+        id="ml"
+        placeholder="Monetary loss"
+        step="any"
+        required
+        min="-111100"
+        max="0"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="pcsl">Bodily injury coverage percentage</label>
+      <select name="pcsl" id="pcsl" required>
+        <option value="">Select Coverage</option>
+        <option value="0">1%</option>
+        <option value="2.5" selected>2.5%</option>
+        <option value="5">5%</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3>Incident Details</h3>
+
+    <div class="form-group">
+      <label for="time">Time of day when incident occurred (0-23)</label>
+      <input
+        type="number"
+        name="time"
+        id="time"
+        placeholder="Hour of the day"
+        step="any"
+        required
+        min="0"
+        max="23"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="nvi">Number of vehicles involved</label>
+      <input
+        type="number"
+        name="nvi"
+        id="nvi"
+        placeholder="Number of vehicles"
+        step="any"
+        required
+        min="1"
+        max="4"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="nbi">Number of bodily injuries</label>
+      <input
+        type="number"
+        name="nbi"
+        id="nbi"
+        placeholder="Number of injuries"
+        step="any"
+        required
+        min="0"
+        max="2"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="nwp">Number of witnesses present</label>
+      <input
+        type="number"
+        name="nwp"
+        id="nwp"
+        placeholder="Number of witnesses"
+        step="any"
+        required
+        min="0"
+        max="3"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="ins">Severity of the incident</label>
+      <select name="ins" id="ins" required>
+        <option value="">Select Severity</option>
+        <option value="td">Trivial Damage</option>
+        <option value="md" selected>Minor Damage</option>
+        <option value="majd">Major Damage</option>
+        <option value="tl">Total Loss</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="it">Type of incident</label>
+      <select name="it" id="it" required>
+        <option value="">Select Incident Type</option>
+        <option value="pc">Parked Car</option>
+        <option value="svc" selected>Single Vehicle Collision</option>
+        <option value="vt">Vehicle Theft</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="ct">Type of collision</label>
+      <select name="ct" id="ct" required>
+        <option value="">Select Collision Type</option>
+        <option value="rc" selected>Rear Collision</option>
+        <option value="sc">Side Collision</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="pd">Property damage occurred?</label>
+      <select name="pd" id="pd" required>
+        <option value="">Select Option</option>
+        <option value="Y" selected>Yes</option>
+        <option value="N">No</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="pr">Police report available?</label>
+      <select name="pr" id="pr" required>
+        <option value="">Select Option</option>
+        <option value="1" selected>Yes</option>
+        <option value="0">No</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="ac">Authority contacted</label>
+      <select name="ac" id="ac" required>
+        <option value="">Select Authority</option>
+        <option value="fire">Fire Department</option>
+        <option value="police" selected>Police</option>
+        <option value="other">Other</option>
+        <option value="none1">None</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3>Claim Amounts</h3>
+
+    <div class="form-group">
+      <label for="aci">Amount claimed for injury</label>
+      <input
+        type="number"
+        name="aci"
+        id="aci"
+        placeholder="Injury claim amount"
+        step="any"
+        required
+        min="0"
+        max="21450"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="acp">Amount claimed for property damage</label>
+      <input
+        type="number"
+        name="acp"
+        id="acp"
+        placeholder="Property damage claim"
+        step="any"
+        required
+        min="0"
+        max="23670"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="acv">Amount claimed for vehicle damage</label>
+      <input
+        type="number"
+        name="acv"
+        id="acv"
+        placeholder="Vehicle damage claim"
+        step="any"
+        required
+        min="70"
+        max="79560"
+      />
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 30px">
+    <button type="submit" class="predict-btn">Analyze for Fraud</button>
+  </div>
+</form>
+{% endblock %}

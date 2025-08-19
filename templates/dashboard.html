@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Dashboard</h2>
+
+<div class="dashboard-welcome">
+    <h3>Welcome back, {{ username }}! 🎉</h3>
+    <p>You have successfully logged in to your dashboard.</p>
+</div>
+
+<div class="dashboard-content">
+    <p><strong>This is your personal dashboard where you can:</strong></p>
+    <ul>
+        <li>View your profile information</li>
+        <li>Manage your account settings</li>
+        <li>Access application features</li>
+        <li>View your activity history</li>
+        <li>Customize your preferences</li>
+        <li>Monitor your usage statistics</li>
+    </ul>
+</div>
+
+<div style="text-align: center;">
+    <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+</div>
+{% endblock %}

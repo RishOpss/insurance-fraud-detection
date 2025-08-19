@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Welcome to Insurance Fraud Detection App</h1>
+
+<div class="welcome">
+    <p>Choose an option to get started:</p>
+    <div class="welcome-buttons">
+        <a href="{{ url_for('register') }}">Register</a>
+        <a href="{{ url_for('login') }}">Login</a>
+    </div>
+</div>
+
+<div class="info-text">
+    <p>New user? Create an account by clicking Register.</p>
+    <p>Already have an account? Click Login to access your dashboard.</p>
+</div>
+{% endblock %}
