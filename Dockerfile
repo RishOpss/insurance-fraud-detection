@@ -29,4 +29,4 @@ ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
 
 # Command to run the Flask application
-CMD ["python", "app.py"]
+CMD ["gunicorn","app:app", "-b", "0.0.0.0:5000", "--workers", "4"]
