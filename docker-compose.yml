@@ -1,11 +1,8 @@
 services:
   db:
     image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: flask
-      MYSQL_DATABASE: flaskapp
-      MYSQL_USER: flaskuser
-      MYSQL_PASSWORD: password
+    env_file:
+      - .env
     ports:
       - "3306:3306"
     volumes:
@@ -13,8 +10,10 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-pflask"]
+      test: ["CMD", "mysqladmin", "ping", "-p${MYSQL_ROOT_PASSWORD}"]
       start_period: 30s
       interval: 10s
       timeout: 5s
@@ -26,11 +25,8 @@ services:
       dockerfile: Dockerfile
     expose:
       - 5000
-    environment:
-      MYSQL_HOST: db
-      MYSQL_DATABASE: flaskapp
-      MYSQL_USER: flaskuser
-      MYSQL_PASSWORD: password
+    env_file:
+      - .env
     depends_on:
       db:
         condition: service_healthy
