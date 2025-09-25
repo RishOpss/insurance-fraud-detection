@@ -99,6 +99,31 @@ insurance-fraud-detection/
 ### Environment Variables
 The application uses the following environment variables (automatically set in Docker):
 
+Create a `.env` file in the root directory with the following variables:
+
+```
+MYSQL_HOST=db
+MYSQL_USER=flaskuser
+MYSQL_PASSWORD=flaskpass
+MYSQL_DATABASE=userdb
+SECRET_KEY=your_secret_key_here
+```
+
+#### How to Use the .env File
+
+1. **Create the file**: Create a file named `.env` in the project root directory
+2. **Add variables**: Add the environment variables as shown above
+3. **Customize values**: Change the values according to your needs
+4. **Docker integration**: The variables will be automatically loaded by Docker Compose
+5. **Local development**: For local development, use `python-dotenv` to load variables:
+   ```python
+   from dotenv import load_dotenv
+   load_dotenv()  # Load variables from .env file
+   ```
+
+> **Note**: The `.env` file contains sensitive information and should not be committed to version control. It's already included in the `.gitignore` file.
+
+```
 - `MYSQL_HOST`: Database host (default: db)
 - `MYSQL_DATABASE`: Database name (default: flaskapp)
 - `MYSQL_USER`: Database user (default: flaskuser)
